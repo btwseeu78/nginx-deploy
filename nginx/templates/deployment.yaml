@@ -1,0 +1,37 @@
+{{  $root := .  }}
+{{- range $env := .Values.env }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ $root.Values.appname }}-{{ $env }}"
+  labels:
+    app : "{{ $root.Values.appname }}-{{ $env }}"
+spec:
+  replicas: {{ $root.Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "{{ $root.Values.appname }}-{{ $env }}"
+  template:
+    metadata:
+      labels:
+        app : "{{ $root.Values.appname }}-{{ $env }}"
+    spec:
+      containers:
+        - name: {{ $root.Chart.Name }}
+          image: {{ $root.Values.image.repository }}
+          imagePullPolicy: {{ $root.Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+...
+{{- end }}

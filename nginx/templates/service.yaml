@@ -1,0 +1,17 @@
+{{  $root := .  }}
+{{- range $env := .Values.env }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ $root.Values.appname }}-{{ $env }}-svc"
+spec:
+  ports:
+    - port: {{ $root.Values.port }}
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app : "{{ $root.Values.appname }}-{{ $env }}"
+...
+{{- end }}
