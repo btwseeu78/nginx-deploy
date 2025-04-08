@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "appname": {
+      "default": "nginx",
+      "required": [],
+      "title": "appname",
+      "type": "string"
+    },
+    "env": {
+      "items": {
+        "anyOf": [
+          {
+            "required": [],
+            "type": "string"
+          },
+          {
+            "required": [],
+            "type": "string"
+          }
+        ],
+        "required": []
+      },
+      "required": [],
+      "title": "env",
+      "type": "array"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "image": {
+      "additionalProperties": false,
+      "properties": {
+        "pullPolicy": {
+          "default": "IfNotPresent",
+          "required": [],
+          "title": "pullPolicy",
+          "type": "string"
+        },
+        "repository": {
+          "default": "nginx",
+          "required": [],
+          "title": "repository",
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "pullPolicy"
+      ],
+      "title": "image",
+      "type": "object"
+    },
+    "port": {
+      "default": 8080,
+      "required": [],
+      "title": "port",
+      "type": "integer"
+    },
+    "replicaCount": {
+      "default": 1,
+      "required": [],
+      "title": "replicaCount",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "replicaCount",
+    "appname",
+    "image",
+    "env",
+    "port"
+  ],
+  "type": "object"
+}
